@@ -14,6 +14,13 @@ Note that just like the original `sys.powerctl` property, the above `setprop` co
 
 When executing `init_patch`, be sure to check the Android logs using `adb logcat` for any output containing the `init_patch` tag as it will print to the Android log instead of stdout.
 
+DISCLAIMER: Note that conventional SELinux policies will likely explicitly disable ptrace on the init process as follows:
+
+    # No domain should be allowed to ptrace init.
+    neverallow * init:process ptrace;
+
+This effectively renders this executable inoperable, unless you modify the SELinux policy or permissive options of the ROM.
+
 ## Building
 
 To compile, run the following command in the jni directory:
