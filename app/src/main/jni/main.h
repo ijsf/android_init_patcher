@@ -29,7 +29,5 @@
 
 // Log tagging
 #define LOG_TAG "init_patch"
-#define LOG(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__)
-#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__)
-#define PREFIX LOG_TAG ": "
-#define SUFFIX "\n"
+#define LOG(...) __android_log_print(ANDROID_LOG_DEBUG, LOG_TAG, __VA_ARGS__); printf(LOG_TAG ": "); printf(__VA_ARGS__); printf("\n");
+#define LOGE(...) __android_log_print(ANDROID_LOG_ERROR, LOG_TAG, __VA_ARGS__); fprintf(stderr, LOG_TAG ": "); fprintf(stderr, __VA_ARGS__); fprintf(stderr, "\n");

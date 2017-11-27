@@ -14,6 +14,7 @@
 
 static void cleanup() {
   if (ptrace(PTRACE_DETACH, TARGET_PID, NULL, NULL)) {
+    LOGE("PTRACE_DETACH not permitted");
     perror("PTRACE_DETACH");
     exit(errno);
   }
@@ -85,12 +86,15 @@ size_t patch_init(const procmap *map, const char *match, const char *replace) {
 int main(int argc, const char *argv[], char *envp[]) {
   procmap map, filtered_map;
 
+  LOG("started");
+
   // Check match and replace sizes
   if(sizeof(PATCH_MATCH) != sizeof(PATCH_REPLACE)) {
     LOGE("invalid patch parameters");
   }
 
   if (ptrace(PTRACE_ATTACH, TARGET_PID, NULL, NULL)) {
+    LOGE("PTRACE_ATTACH not permitted");
     perror("PTRACE_ATTACH");
     exit(errno);
   }
